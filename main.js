@@ -84,7 +84,11 @@ function showTodos() {
     todos.forEach((todo, index) => {
         console.log(index + ':' + todo);
     });
+    if (todos.length === 0) {
+        console.log('タスクなし');
+    }
 }
+
 
 /**
  * 「追加」が入力されたときに実行される関数「createTodo関数」を用意する
