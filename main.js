@@ -34,15 +34,15 @@ let input;
 //     4. 「終了」と入力された時: Consoleに'終了します'と表示して、Whileループを終了する
 //   - 「確認」「追加」「削除」「終了」以外がinputに代入されたら「「確認,追加,削除,終了」以外は入力できません」とConsoleに表示する
 
-while (input !== '終了') {
+while (input !== commands[3]) {
     input = prompt('確認, 追加, 削除, 終了のいずれかを入力してください');
-    if (input === '確認') {
+    if (input === commands[0]) {
         showTodos();
-    } else if (input === '追加') {
+    } else if (input === commands[1]) {
         createTodo();
-    } else if (input === '削除') {
+    } else if (input === commands[2]) {
         deleteTodo();
-    } else if (input === '終了') {
+    } else if (input === commands[3]) {
         console.log('終了します');
     } else {
         console.log('「確認, 追加, 削除, 終了」以外は入力できません');
