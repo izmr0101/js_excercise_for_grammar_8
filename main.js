@@ -6,6 +6,7 @@
 //     3. 散歩
 // ここに変数「todos」を用意する
 
+const todos = ['掃除', '買い物', '散歩'];
 
 // ここに、Todoリストの機能を入力された文字によって使い分けるための文字列を配列で所持する
 //   - 変数名は「commands」とする
@@ -16,9 +17,12 @@
 //     4. 終了
 // ここに変数「commands」を用意する
 
+const commands = ['確認', '追加', '削除', '終了'];
+
 
 // ここに、promptで入力したものを保持しておくための変数「input」を用意する
 
+let input;
 
 // ここに「終了」と入力されたらループを終了するwhileループを作成する
 //   - whileループの中でprompt関数を使って、値を入力できるようにして、入力された内容は変数「input」に格納する
@@ -30,9 +34,23 @@
 //     4. 「終了」と入力された時: Consoleに'終了します'と表示して、Whileループを終了する
 //   - 「確認」「追加」「削除」「終了」以外がinputに代入されたら「「確認,追加,削除,終了」以外は入力できません」とConsoleに表示する
 
+while (input !== commands[3]) {
+    input = prompt('確認, 追加, 削除, 終了のいずれかを入力してください');
+    if (input === commands[0]) {
+        showTodos();
+    } else if (input === commands[1]) {
+        createTodo();
+    } else if (input === commands[2]) {
+        deleteTodo();
+    } else if (input === commands[3]) {
+        console.log('終了します');
+    } else {
+        console.log('「確認, 追加, 削除, 終了」以外は入力できません');
+    }
+}
 
 // ここでWhileループを抜けた後もタスク一覧を表示する(最終的なタスク一覧を確認するため)
-
+showTodos();
 
 /**
  * 「確認」が入力されたときに実行される関数「showTodos関数」を用意する
@@ -59,6 +77,18 @@
  */
 // ここにshowTodos関数を作る
 
+function showTodos() {
+    console.log('========================')
+    console.log('現在持っているのタスク一覧')
+    console.log('========================')
+    todos.forEach((todo, index) => {
+        console.log(index + ':' + todo);
+    });
+    if (todos.length === 0) {
+        console.log('タスクなし');
+    }
+}
+
 
 /**
  * 「追加」が入力されたときに実行される関数「createTodo関数」を用意する
@@ -71,6 +101,17 @@
  *      3. showTodos関数を実行して、現在保持しているタスク一覧を表示する
  */
 // ここにcreateTodo関数を作る
+
+function createTodo() {
+    const addedTodo = prompt('タスクを入力してください');
+    if (addedTodo) {
+        todos.push(addedTodo);
+        alert('新しいタスクを追加しました');
+        showTodos();
+    } else {
+        alert('何も入力されていないためスキップします');
+    }
+}
 
 /**
  * 「削除」が入力されたときに実行される関数
@@ -94,3 +135,16 @@
  */
 // ここにdeleteTodo関数を作る
 
+function deleteTodo() {
+    const deletedNumber = prompt('削除するタスクの番号を指定してください');
+    const persedDeletedNumber = parseInt(deletedNumber, 10);
+    if (persedDeletedNumber < 0 || persedDeletedNumber >= todos.length) {
+        alert('不正な値のためスキップします');
+    } else if (isNaN(persedDeletedNumber)) {
+        alert('不正な値のためスキップします');
+    } else {
+        const deletedTodos = todos.splice(persedDeletedNumber, 1);
+        alert(deletedTodos + 'を削除しました');
+        showTodos();
+    }
+}
